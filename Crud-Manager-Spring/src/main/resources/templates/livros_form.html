@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="cabecalho :: head"></div>
+    <title>Crud Manager - Form Livros</title>
+</head>
+<body>
+    <div class="container my-2">
+        <h2>Livros</h2>
+
+        <form th:action="@{/livros/register}" 
+              method="POST"
+              th:object="${livro}" 
+              action="#">
+            
+            <input type="hidden" id="id" th:field="*{id}">
+            
+            <div class="form-group">
+                <span class="text-danger"
+                      th:if="${#fields.hasErrors('nome')}"
+                      th:errors="*{nome}">
+                </span>
+                <input type="text" placeholder="Nome do livro" 
+                       class="form-control mb-4 col-4"
+                       th:field="*{nome}"> 
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger"
+                      th:if="${#fields.hasErrors('genero')}"
+                      th:errors="*{genero}">
+                </span>
+                <input type="text" placeholder="Gênero do Livro" 
+                       class="form-control mb-4 col-4"
+                       th:field="*{genero}">
+            </div>
+            
+            <div class="form-group">
+                <span class="text-danger"
+                      th:if="${#fields.hasErrors('autor')}"
+                      th:errors="*{autor}">
+                </span>
+                <input type="text" placeholder="Autor do livro" 
+                       class="form-control mb-4 col-4"
+                       th:field="*{autor}">
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger"
+                      th:if="${#fields.hasErrors('editora')}"
+                      th:errors="*{editora}"> 
+                </span>
+                <input type="text" placeholder="Editora do livro" 
+                       class="form-control mb-4 col-4"
+                       th:field="*{editora}">
+            </div>
+                   
+            <div class="form-group mb-4">
+                <label for="biblioteca">Biblioteca</label>
+                <select id="biblioteca" name="biblioteca" class="form-control" th:field="*{biblioteca}">
+                    <option value="" disabled selected>Selecione uma Biblioteca</option>
+                    <option th:each="biblioteca : ${bibliotecas}" 
+                            th:value="${biblioteca.id}" 
+                            th:text="${biblioteca.nome}">
+                    </option>
+                </select>
+                <span class="text-danger" th:if="${#fields.hasErrors('biblioteca')}" th:errors="*{biblioteca}"></span>
+            </div>
+            
+            <button type="submit" 
+                    class="btn btn-info col-2">Salvar</button>
+            
+        </form>
+        
+        <hr>
+        
+        <a th:href="@{/livros}"> Livros </a>
+    </div>
+</body>
+</html>
